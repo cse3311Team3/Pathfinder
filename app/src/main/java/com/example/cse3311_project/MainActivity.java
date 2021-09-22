@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     String email;
     String password;
+    String test;
 
     EditText emailInput;
     EditText passwordInput;
