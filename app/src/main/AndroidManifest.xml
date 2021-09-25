@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cse3311_project">
+    package="com.example.cse3311_project" >
 
     <application
         android:allowBackup="true"
@@ -8,21 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".CreateAccount"/>
-        <activity android:name=".HomePage"/>
-
+        android:theme="@style/Theme.Design.NoActionBar" >
+        <activity
+            android:name=".HomePage"
+            android:exported="true" />
+        <activity
+            android:name=".CreateAccount"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
     </application>
 
 </manifest>
