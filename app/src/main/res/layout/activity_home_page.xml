@@ -6,15 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".HomePage">
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app.titleMarginStart="40dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="20dp"
-        android:text="Welcome!"
-        android:textSize="25dp"></TextView>
+        android:background="@color/grey"
+        app:logo="@drawable/ic_menu"
+        app:title="  Welcome">
+
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <GridLayout
         android:layout_width="match_parent"

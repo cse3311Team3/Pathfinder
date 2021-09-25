@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
         <activity
+            android:name=".AboutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UserProfile"
+            android:exported="true" />
+        <activity
             android:name=".ListView"
             android:exported="true" />
         <activity

@@ -6,21 +6,27 @@
         <entry key="..\:/Fall 2021/team3/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2703125" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/drawable/ic_nav.xml" value="0.2703125" />
+        <entry key="..\:/Fall 2021/team3/app/src/main/res/drawable/ic_userprofile.xml" value="0.14635416666666667" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/account_create.xml" value="0.25416666666666665" />
+        <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_about.xml" value="0.24010416666666667" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_create_schedule.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_current_schedule.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_edit_schedule.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_home_page.xml" value="0.1793478260869565" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_list_view.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_settings.xml" value="0.25181159420289856" />
+        <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_user_profile.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/activity_view_map.xml" value="0.24010416666666667" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/create_account.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/create_schedule.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/current_schedule.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/edit_schedule.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/list_view.xml" value="0.25181159420289856" />
+        <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/settings_activity.xml" value="0.25181159420289856" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/toolbar.xml" value="0.2210144927536232" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/layout/view_map.xml" value="0.25181159420289856" />
+        <entry key="..\:/Fall 2021/team3/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Fall 2021/team3/app/src/main/res/menu/top_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2875" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/account_create.xml" value="0.20520833333333333" />
