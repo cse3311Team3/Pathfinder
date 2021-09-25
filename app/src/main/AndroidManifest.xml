@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cse3311_project" >
+    package="com.example.cse3311_project">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.NoActionBar" >
+        android:theme="@style/Theme.Design.NoActionBar">
+        <activity
+            android:name=".ListView"
+            android:exported="true" />
+        <activity
+            android:name=".ViewMap"
+            android:exported="true" />
+        <activity
+            android:name=".EditSchedule"
+            android:exported="true" />
+        <activity
+            android:name=".CreateSchedule"
+            android:exported="true" />
+        <activity
+            android:name=".CurrentSchedule"
+            android:exported="true" />
         <activity
             android:name=".HomePage"
             android:exported="true" />
@@ -17,7 +32,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

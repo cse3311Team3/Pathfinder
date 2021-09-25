@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomePage">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +22,9 @@
         android:layout_marginTop="100dp"
         android:rowCount="3"
         android:columnCount="2">
+
         <androidx.cardview.widget.CardView
+            android:id="@+id/c1"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -59,6 +62,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/c2"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -69,7 +73,8 @@
             app:cardBackgroundColor="@color/grey"
             android:layout_margin="12dp"
             app:cardElevation="10dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            tools:ignore="InvalidId">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -96,6 +101,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/c3"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -106,7 +112,8 @@
             app:cardBackgroundColor="@color/grey"
             android:layout_margin="12dp"
             app:cardElevation="10dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            tools:ignore="DuplicateIds">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,6 +140,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/c4"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -171,6 +179,7 @@
 
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/c5"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -181,7 +190,8 @@
             app:cardBackgroundColor="@color/grey"
             android:layout_margin="12dp"
             app:cardElevation="10dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            tools:ignore="DuplicateIds">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -210,7 +220,6 @@
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
-
 
 
 </RelativeLayout>
