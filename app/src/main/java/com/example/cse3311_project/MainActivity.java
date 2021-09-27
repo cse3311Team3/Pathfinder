@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Create firebase authentication instance
         firebaseAuth = FirebaseAuth.getInstance();
 
         emailInput = findViewById(R.id.emailInput);
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 password = passwordInput.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(MainActivity.this, "Please enter login information", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter login information", Toast.LENGTH_SHORT).show(); // check for email and password verification
                 } else {
                     userLogin(email, password);
                 }
@@ -72,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    
+    // firebase authentication for user email and password
     private void userLogin(String email, String password) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
