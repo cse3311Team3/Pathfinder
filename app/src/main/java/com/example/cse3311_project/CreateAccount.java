@@ -53,14 +53,15 @@ public class CreateAccount extends AppCompatActivity {
                 password = passwordInput.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(CreateAccount.this, "Please enter valid information", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccount.this, "Please enter valid information", Toast.LENGTH_SHORT).show(); // firebase authentication 
                 } else {
                     createUser(email, password);
                 }
             }
         });
     }
-
+    
+    // create a user using firebase authentication
     private void createUser(String email, String password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
