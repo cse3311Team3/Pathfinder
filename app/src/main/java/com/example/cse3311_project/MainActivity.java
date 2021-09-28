@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String test;
+
     private EditText emailInput;
     private EditText passwordInput;
 
