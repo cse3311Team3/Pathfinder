@@ -23,10 +23,15 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
     private Button create_button;
     private Button add_location;
     private AlertDialog.Builder dialogbuilder;
+    private AlertDialog.Builder dialogbuilder_next;
     private AlertDialog dialog;
+    private AlertDialog new_dialog;
     private EditText name_schedule, address_one, address_two, city, postal_code, country;
     private Button cancel, save;
     private Spinner spinner;
+    private Button date_bt, cancel_bt, save_bt;
+    private EditText new_schedule, ocas_schedule;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         create_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // do something else
+                createScheduleDialog();
             }
         });
         add_location = (Button)findViewById(R.id.add_locations);
@@ -149,8 +154,42 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         });
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
+    public void createScheduleDialog()
+    {
+        dialogbuilder_next = new AlertDialog.Builder(this);
+        final View schedule_popup = getLayoutInflater().inflate(R.layout.schedule_popup, null);
+        new_schedule = (EditText) schedule_popup.findViewById(R.id.schedule_name);
+        ocas_schedule = (EditText) schedule_popup.findViewById(R.id.schedule_ocassion);
+        cancel_bt = (Button) schedule_popup.findViewById(R.id.cancel_but);
+        save_bt = (Button) schedule_popup.findViewById(R.id.save_but);
+        date_bt = (Button) schedule_popup.findViewById(R.id.select_date);
+
+        dialogbuilder_next.setView(schedule_popup);
+        new_dialog = dialogbuilder_next.create();
+        new_dialog.show();
+
+        date_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        save_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "New schedule created.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        cancel_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "No new schedule created.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
 
     }
 }

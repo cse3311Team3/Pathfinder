@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_schedule_window"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="563dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/create" />
+
+        <EditText
+            android:id="@+id/schedule_name"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:drawableLeft="@drawable/ic_baseline_schedule_24"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="  Schedule Name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.092" />
+
+        <EditText
+            android:id="@+id/schedule_ocassion"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:drawableLeft="@drawable/ic_baseline_schedule_24"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="  Schedule Ocsasion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.451" />
+
+        <Button
+            android:id="@+id/select_date"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
+            android:text="Select Date"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schedule_ocassion"
+            app:layout_constraintVertical_bias="0.091" />
+
+        <Button
+            android:id="@+id/save_but"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.677"
+            app:layout_constraintStart_toEndOf="@+id/cancel_but"
+            app:layout_constraintTop_toBottomOf="@+id/select_date"
+            app:layout_constraintVertical_bias="0.218" />
+
+        <Button
+            android:id="@+id/cancel_but"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_date"
+            app:layout_constraintVertical_bias="0.218" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
