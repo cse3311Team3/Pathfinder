@@ -53,9 +53,15 @@ public class CreateAccount extends AppCompatActivity {
                 password = passwordInput.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(CreateAccount.this, "Please enter valid information", Toast.LENGTH_SHORT).show(); // firebase authentication 
+                    Toast.makeText(CreateAccount.this, "Please enter valid information", Toast.LENGTH_SHORT).show(); // firebase authentication
                 } else {
-                    createUser(email, password);
+                    if(password.length() < 6)
+                    {
+                        Toast.makeText(CreateAccount.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        createUser(email, password);
+                    }
                 }
             }
         });
@@ -69,6 +75,8 @@ public class CreateAccount extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(CreateAccount.this, "Account created", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+                    String uid = user.getUid();
+                    firebaseRoot.push().setValue(uid);
                     startActivity(new Intent(CreateAccount.this, HomePage.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                     finish();
                 } else {
