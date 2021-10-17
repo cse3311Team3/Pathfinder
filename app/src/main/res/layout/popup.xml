@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_window"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/name_schedule"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/create"
+                tools:layout_conversion_absoluteHeight="150dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <EditText
+                android:id="@+id/name_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="  Schedule Name"
+                app:layout_constraintBottom_toTopOf="@+id/address_one"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                tools:layout_conversion_absoluteHeight="75dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <EditText
+                android:id="@+id/address_one"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:drawableLeft="@drawable/ic_baseline_add_location_24"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="  Address Line 1 (street address)"
+                app:layout_constraintBottom_toTopOf="@+id/address_two"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_schedule"
+                tools:layout_conversion_absoluteHeight="75dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <EditText
+                android:id="@+id/address_two"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:drawableLeft="@drawable/ic_baseline_add_location_24"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="  Address Line 2 (apt, suites, build)"
+                app:layout_constraintBottom_toTopOf="@+id/city"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_one"
+                tools:layout_conversion_absoluteHeight="75dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:drawableLeft="@drawable/ic_baseline_location_city_24"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="  City"
+                app:layout_constraintBottom_toTopOf="@+id/states"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_two"
+                tools:layout_conversion_absoluteHeight="75dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <Spinner
+                android:id="@+id/states"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                app:layout_constraintBottom_toTopOf="@+id/postal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city"
+                tools:ignore="SpeakableTextPresentCheck"
+                tools:layout_conversion_absoluteHeight="75dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <EditText
+                android:id="@+id/postal"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:drawableLeft="@drawable/ic_baseline_add_location_24"
+                android:ems="10"
+                android:inputType="number"
+                android:text="  Postal Code" />
+
+            <EditText
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:drawableLeft="@drawable/ic_baseline_location_city_24"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="  Country"
+                app:layout_constraintBottom_toTopOf="@+id/save_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postal"
+                tools:layout_conversion_absoluteHeight="75dp"
+                tools:layout_conversion_absoluteWidth="432dp" />
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Cancel" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
