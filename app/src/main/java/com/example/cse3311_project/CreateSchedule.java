@@ -116,10 +116,13 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 
     }
     // Dialog for creating new schedule
+
     public void createNewLocationDialog()
     {
         dialogbuilder = new AlertDialog.Builder(this);
         final View location_popup = getLayoutInflater().inflate(R.layout.popup, null);
+
+        // use these later for implementation
         name_schedule = (EditText) location_popup.findViewById(R.id.name_schedule);
         address_one = (EditText) location_popup.findViewById(R.id.address_one);
         address_two = (EditText) location_popup.findViewById(R.id.address_two);
