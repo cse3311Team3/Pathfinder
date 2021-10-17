@@ -179,7 +179,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "New schedule created.", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                new_dialog.dismiss();
             }
         });
 
@@ -187,7 +187,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "No new schedule created.", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                new_dialog.dismiss();
             }
         });
 
