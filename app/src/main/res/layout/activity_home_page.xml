@@ -14,10 +14,7 @@
         android:background="@color/grey"
         app:logo="@drawable/pathfinder"
         app:title="  Welcome">
-
-
     </androidx.appcompat.widget.Toolbar>
-
 
     <GridLayout
         android:layout_width="match_parent"

@@ -1,10 +1,7 @@
 package com.example.cse3311_project;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +11,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class CreateSchedule extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+
+public class CreateSchedule extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     private Button create_button;
     private Button add_location;
@@ -171,7 +177,8 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         date_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DialogFragment datePicker = new datepickerdialog();
+                datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
 
@@ -191,5 +198,15 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+    }
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        Toast.makeText(getApplicationContext(), "Date selected - "+currentDateString+".", Toast.LENGTH_SHORT).show();
+        //we can use the currentdatstring
     }
 }
