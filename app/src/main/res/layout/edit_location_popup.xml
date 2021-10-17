@@ -5,43 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        app.titleMarginStart="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:background="@color/grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:logo="@drawable/pathfinder"
-        app:title="Current Schedule">
-    </androidx.appcompat.widget.Toolbar>
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.005"
+                app:srcCompat="@drawable/edit_schedule"
+                tools:ignore="SpeakableTextPresentCheck" />
+
             <Button
-                android:id="@+id/schdeule1"
+                android:id="@+id/location1"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="113dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/rounded_button"
-                android:text="Current schedule - 1"
+                android:text="Location - 1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,14 +43,14 @@
                 app:layout_constraintVertical_bias="0.367" />
 
             <Button
-                android:id="@+id/schedule2"
+                android:id="@+id/location2"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/rounded_button"
-                android:text="Current schedule - 2"
+                android:text="Location - 2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,14 +58,14 @@
                 app:layout_constraintVertical_bias="0.542" />
 
             <Button
-                android:id="@+id/schedule3"
+                android:id="@+id/location3"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/rounded_button"
-                android:text="Current Schedule - 3"
+                android:text="Loaction - 3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,22 +73,36 @@
                 app:layout_constraintVertical_bias="0.709" />
 
             <Button
-                android:id="@+id/schedule4"
+                android:id="@+id/but_save"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:background="@drawable/rounded_button"
-                android:text="Current Schedule - 4"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.145"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageButton"
-                app:layout_constraintVertical_bias="0.709" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.874" />
 
+            <Button
+                android:id="@+id/but_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:text="Cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.854"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.874" />
         </LinearLayout>
-
     </ScrollView>
+
 
 </RelativeLayout>

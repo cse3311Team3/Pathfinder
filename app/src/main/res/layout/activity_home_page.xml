@@ -10,14 +10,11 @@
         android:id="@+id/toolbar"
         app.titleMarginStart="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="63dp"
         android:background="@color/grey"
-        app:logo="@drawable/ic_menu"
+        app:logo="@drawable/pathfinder"
         app:title="  Welcome">
-
-
     </androidx.appcompat.widget.Toolbar>
-
 
     <GridLayout
         android:layout_width="match_parent"
