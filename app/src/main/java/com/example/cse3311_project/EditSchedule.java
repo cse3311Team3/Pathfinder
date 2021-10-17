@@ -45,6 +45,7 @@ public class EditSchedule extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //edit_location_dialog
+                edit_location_dialog();
 
             }
         });
@@ -145,5 +146,116 @@ public class EditSchedule extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void edit_location_dialog()
+    {
+        dialogbuilder = new AlertDialog.Builder(this);
+        final View edit_location = getLayoutInflater().inflate(R.layout.schedule_list_popup, null);
+
+        dialogbuilder.setView(edit_location);
+        dialog = dialogbuilder.create();
+        dialog.show();
+
+        //use these later for implementation
+        Button schedule1 = (Button) edit_location.findViewById(R.id.schdeule1);
+        Button schedule2 = (Button)edit_location.findViewById(R.id.schedule2);
+        Button schedule3 = (Button)edit_location.findViewById(R.id.schedule3);
+        Button save = (Button)edit_location.findViewById(R.id.button_save);
+        Button cancel = (Button)edit_location.findViewById(R.id.button_cancel);
+
+        schedule1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
+                //dialog.dismiss();
+                location_edit_popup();
+            }
+        });
+
+        schedule2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
+                //dialog.dismiss();
+                location_edit_popup();
+            }
+        });
+
+        schedule3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
+                location_edit_popup();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Change location Successful", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Change location cancelled.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void location_edit_popup()
+    {
+        dialogbuilder = new AlertDialog.Builder(this);
+        final View edit_location = getLayoutInflater().inflate(R.layout.edit_location_popup, null);
+        dialogbuilder.setView(edit_location);
+        dialog = dialogbuilder.create();
+        dialog.show();
+
+        Button location1 = (Button) edit_location.findViewById(R.id.location1);
+        Button location2 = (Button)edit_location.findViewById(R.id.location2);
+        Button location3 = (Button)edit_location.findViewById(R.id.location3);
+        Button save = (Button)edit_location.findViewById(R.id.but_save);
+        Button cancel = (Button)edit_location.findViewById(R.id.but_cancel);
+
+        location1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "You can change location here. Implementation left", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        location2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "You can change location here. Implementation left", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        location3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "You can change location here. Implementation left", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Change location Successful", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "Change location cancelled.", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
     }
 }
