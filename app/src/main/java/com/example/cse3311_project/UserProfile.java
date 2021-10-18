@@ -40,6 +40,7 @@ public class UserProfile extends AppCompatActivity {
     String firstName;
     String lastName;
     String userName;
+    String test;
 
     private static final int IMAGE = 100;
 
