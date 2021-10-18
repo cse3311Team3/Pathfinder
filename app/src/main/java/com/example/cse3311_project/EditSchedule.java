@@ -91,7 +91,7 @@ public class EditSchedule extends AppCompatActivity {
         return true;
     }
 
-
+    // dialog pop up for editing schedule 
     public void editscheduleDialog() {
         dialogbuilder = new AlertDialog.Builder(this);
         final View edit_schedule = getLayoutInflater().inflate(R.layout.schedule_list_popup, null);
@@ -106,7 +106,8 @@ public class EditSchedule extends AppCompatActivity {
         Button schedule3 = (Button)edit_schedule.findViewById(R.id.schedule3);
         Button save = (Button)edit_schedule.findViewById(R.id.button_save);
         Button cancel = (Button)edit_schedule.findViewById(R.id.button_cancel);
-
+        
+        // lists the schedule-implementation left
         schedule1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +148,8 @@ public class EditSchedule extends AppCompatActivity {
         });
 
     }
-
+    
+    //dialog pop up for editing location to the existing schedule
     public void edit_location_dialog()
     {
         dialogbuilder = new AlertDialog.Builder(this);
@@ -163,7 +165,8 @@ public class EditSchedule extends AppCompatActivity {
         Button schedule3 = (Button)edit_location.findViewById(R.id.schedule3);
         Button save = (Button)edit_location.findViewById(R.id.button_save);
         Button cancel = (Button)edit_location.findViewById(R.id.button_cancel);
-
+        
+        // implementation left for schedule 
         schedule1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,6 +210,7 @@ public class EditSchedule extends AppCompatActivity {
         });
     }
 
+    // dialog pop up for editing location
     public void location_edit_popup()
     {
         dialogbuilder = new AlertDialog.Builder(this);
@@ -220,7 +224,8 @@ public class EditSchedule extends AppCompatActivity {
         Button location3 = (Button)edit_location.findViewById(R.id.location3);
         Button save = (Button)edit_location.findViewById(R.id.but_save);
         Button cancel = (Button)edit_location.findViewById(R.id.but_cancel);
-
+        
+        // implementation left - locations listed currently
         location1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
