@@ -162,7 +162,8 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             }
         });
     }
-
+    
+    // pop up the create new schedule dialogue
     public void createScheduleDialog()
     {
         dialogbuilder_next = new AlertDialog.Builder(this);
@@ -202,6 +203,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         });
 
     }
+    // display the calendar clicking the date
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
