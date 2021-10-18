@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserProfile extends AppCompatActivity {
 
+    // declaration for user avatar
     Uri imageUri;
 
     EditText firstNameInput;
@@ -60,7 +61,7 @@ public class UserProfile extends AppCompatActivity {
         String uid = user.getUid();
 
 
-
+        // get the input for the first name, last name and user name
         firebaseRoot.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -87,13 +88,14 @@ public class UserProfile extends AppCompatActivity {
         cancel = findViewById(R.id.cancelAccountButton);
 
 
-
+        // change the avatar 
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 avatarFile();
             }
         });
+        // update the account while getting all the inputs
         updateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,11 +123,13 @@ public class UserProfile extends AppCompatActivity {
             }
         });
     }
+    // go to user's phone camera and let user select the avatar
     private void avatarFile(){
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(intent, IMAGE);
     }
 
+    //set the image for user avatar
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
