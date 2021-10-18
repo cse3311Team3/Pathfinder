@@ -50,14 +50,16 @@ public class CreateAccount extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseRoot = FirebaseDatabase.getInstance().getReference();
-
+        
+        // get all the edittext
         emailInput = findViewById(R.id.createEmailInput);
         passwordInput = findViewById(R.id.createPasswordInput);
         firstNameInput = findViewById(R.id.createFirstName);
         lastNameInput = findViewById(R.id.createLastName);
         userNameInput = findViewById(R.id.createUserName);
         createAccount = findViewById(R.id.createPageAccountButton);
-
+        
+        //On cicking user profile check if the fields are empty
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +85,7 @@ public class CreateAccount extends AppCompatActivity {
     }
     
     // create a user using firebase authentication
+    // takes first name, last name, username, and email
     private void createUser(String email, String password, String firstName, String lastName, String userName) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
