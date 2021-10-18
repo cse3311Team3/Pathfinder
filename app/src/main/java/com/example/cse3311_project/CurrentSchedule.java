@@ -23,7 +23,8 @@ public class CurrentSchedule extends AppCompatActivity {
         // adding toolbar to the current schedule page
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        
+        // schedule buttons - implementation left
         Button current_schedule1 = (Button)findViewById(R.id.schdeule1);
         current_schedule1.setOnClickListener(new View.OnClickListener() {
             @Override
