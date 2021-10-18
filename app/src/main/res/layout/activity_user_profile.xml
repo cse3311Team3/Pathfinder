@@ -6,18 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".UserProfile">
 
-    <ImageView
-        android:id="@+id/userAccountAvatar"
-        android:layout_width="154dp"
-        android:layout_height="149dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.139"
-        app:srcCompat="@drawable/ic_userprofile" />
-
     <Button
         android:id="@+id/updateAccountButton"
         android:layout_width="177dp"
@@ -82,4 +70,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.586" />
+
+    <Button
+        android:id="@+id/changeAvatar"
+        android:layout_width="162dp"
+        android:layout_height="41dp"
+        android:text="Change Avatar"
+        app:layout_constraintBottom_toTopOf="@+id/firstNameUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.918" />
+
+    <ImageView
+        android:id="@+id/avatarProfile"
+        android:layout_width="167dp"
+        android:layout_height="134dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.102"
+        app:srcCompat="@drawable/ic_userprofile" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
