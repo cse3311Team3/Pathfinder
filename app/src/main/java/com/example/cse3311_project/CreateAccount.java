@@ -85,7 +85,7 @@ public class CreateAccount extends AppCompatActivity {
     }
     
     // create a user using firebase authentication
-    // takes first name, last name, username, and email
+    // takes first name, last name, username, and email to check
     private void createUser(String email, String password, String firstName, String lastName, String userName) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
