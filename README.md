@@ -1,7 +1,6 @@
 # Pathfinder
 An android application that makes day to day trips more efficient by prioritizing the places the user inputs to save travel time and distance.
 
-<br></br>
 ## Compilation Instructions
 
 - Open android studio and open the terminal panel at the bottom. Type the following command to clone the repository.
