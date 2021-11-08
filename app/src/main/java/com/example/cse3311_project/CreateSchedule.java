@@ -21,6 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -38,10 +43,17 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
     private Button date_bt, cancel_bt, save_bt;
     private EditText new_schedule, ocas_schedule;
 
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference firebaseRoot;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseRoot = FirebaseDatabase.getInstance().getReference();
+
         setContentView(R.layout.activity_create_schedule);
 
         // adding toolbar to the create schedule page
@@ -148,7 +160,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              // define cancel button
+                // define cancel button
                 Toast.makeText(getApplicationContext(), "Location Not saved.", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -165,6 +177,9 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 
     public void createScheduleDialog()
     {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String uid = user.getUid();
+
         dialogbuilder_next = new AlertDialog.Builder(this);
         final View schedule_popup = getLayoutInflater().inflate(R.layout.schedule_popup, null);
         new_schedule = (EditText) schedule_popup.findViewById(R.id.schedule_name);
@@ -189,6 +204,11 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "New schedule created.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), new_schedule.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), ocas_schedule.getText().toString(), Toast.LENGTH_SHORT).show();
+                firebaseRoot.child(uid).child("Schedules").push().setValue(new_schedule.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(new_schedule.getText().toString()).child("Name").setValue(new_schedule.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(new_schedule.getText().toString()).child("Occasion").setValue(ocas_schedule.getText().toString());
                 new_dialog.dismiss();
             }
         });
