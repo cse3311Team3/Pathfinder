@@ -30,6 +30,11 @@
                 tools:layout_conversion_absoluteHeight="150dp"
                 tools:layout_conversion_absoluteWidth="432dp" />
 
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
             <EditText
                 android:id="@+id/name_schedule"
                 android:layout_width="match_parent"

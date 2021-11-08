@@ -21,8 +21,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CreateSchedule extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
@@ -34,9 +44,14 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
     private AlertDialog new_dialog;
     private EditText name_schedule, address_one, address_two, city, postal_code, country;
     private Button cancel, save;
-    private Spinner spinner;
+    private Spinner spinner, spinner2;
     private Button date_bt, cancel_bt, save_bt;
     private EditText new_schedule, ocas_schedule;
+    String[] temp = {"Test1", "Test2", "Test3"};
+    String stateAbb, scheduleName;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference firebaseRoot, firebaseRoot2;
+    List<String> scheduleList = new ArrayList();
 
 
     @Override
@@ -44,7 +59,16 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_schedule);
 
-        // adding toolbar to the create schedule page
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseRoot = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        firebaseRoot2 = FirebaseDatabase.getInstance().getReference(uid).child("Schedules");
+
+
+
+
+            // adding toolbar to the create schedule page
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -107,8 +131,16 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        if(parent.getId() == R.id.spinner3)
+        {
+            String text = parent.getItemAtPosition(position).toString();
+            scheduleName = text;
+        }
+        else if(parent.getId() == R.id.states)
+        {
+            String text = parent.getItemAtPosition(position).toString();
+            stateAbb = text;
+        }
     }
 
     @Override
@@ -129,6 +161,13 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         city= (EditText) location_popup.findViewById(R.id.city);
         postal_code = (EditText) location_popup.findViewById(R.id.postal);
         country = (EditText) location_popup.findViewById(R.id.country);
+
+        spinner2 = location_popup.findViewById(R.id.spinner3);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, temp);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
+        spinner2.setOnItemSelectedListener(this);
 
         //Spinner for states
         spinner = location_popup.findViewById(R.id.states);
