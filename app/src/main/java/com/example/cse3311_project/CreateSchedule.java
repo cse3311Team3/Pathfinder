@@ -66,7 +66,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         firebaseRoot.child(uid).child("Schedules").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //final List<String> scheduleList = new ArrayList<String>();
+                scheduleList.clear();
                 for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
                     String name = locationSnapshot.child("Name").getValue(String.class);
                     if(name != null){
