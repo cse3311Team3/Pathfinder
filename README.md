@@ -1,5 +1,5 @@
 # Pathfinder
-An android application that makes day to day trips more efficient by prioritizing the places the user inputs to save travel time and distance.
+An android application that makes vacation trips more efficient by prioritizing the places the user inputs to save travel time and distance.
 
 ## Compilation Instructions
 
