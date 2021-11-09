@@ -33,6 +33,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class CreateSchedule extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
@@ -47,7 +48,6 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinner, spinner2;
     private Button date_bt, cancel_bt, save_bt;
     private EditText new_schedule, ocas_schedule;
-    String[] temp = {"Test1", "Test2", "Test3"};
     String stateAbb, scheduleName;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseRoot, firebaseRoot2;
@@ -63,12 +63,26 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         firebaseRoot = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
-        firebaseRoot2 = FirebaseDatabase.getInstance().getReference(uid).child("Schedules");
+        firebaseRoot.child(uid).child("Schedules").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //final List<String> scheduleList = new ArrayList<String>();
+                for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
+                    String name = locationSnapshot.child("Name").getValue(String.class);
+                    if(name != null){
+                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
+                        scheduleList.add(name);
+                    }
+
+                }}
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+            }});
 
 
-
-
-            // adding toolbar to the create schedule page
+                                                                   // adding toolbar to the create schedule page
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -129,19 +143,6 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 //        return true;
 //    }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(parent.getId() == R.id.spinner3)
-        {
-            String text = parent.getItemAtPosition(position).toString();
-            scheduleName = text;
-        }
-        else if(parent.getId() == R.id.states)
-        {
-            String text = parent.getItemAtPosition(position).toString();
-            stateAbb = text;
-        }
-    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -151,6 +152,8 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 
     public void createNewLocationDialog()
     {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String uid = user.getUid();
         dialogbuilder = new AlertDialog.Builder(this);
         final View location_popup = getLayoutInflater().inflate(R.layout.popup, null);
 
@@ -164,7 +167,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 
         spinner2 = location_popup.findViewById(R.id.spinner3);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, temp);
+                android.R.layout.simple_spinner_item, scheduleList);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
         spinner2.setOnItemSelectedListener(this);
@@ -197,14 +200,38 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Location saved to the schedule.", Toast.LENGTH_SHORT).show();
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Address One").setValue(address_one.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Address Two").setValue(address_two.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("City").setValue(city.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Postal Code").setValue(postal_code.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Country").setValue(country.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("State").setValue(stateAbb);
                 dialog.dismiss();
             }
         });
+
     }
-    
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(parent.getId() == R.id.spinner3)
+        {
+            String text = parent.getItemAtPosition(position).toString();
+            scheduleName = text;
+        }
+        else if(parent.getId() == R.id.states)
+        {
+            String text = parent.getItemAtPosition(position).toString();
+            stateAbb = text;
+        }
+    }
+
+
     // pop up the create new schedule dialogue
     public void createScheduleDialog()
     {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String uid = user.getUid();
         dialogbuilder_next = new AlertDialog.Builder(this);
         final View schedule_popup = getLayoutInflater().inflate(R.layout.schedule_popup, null);
         new_schedule = (EditText) schedule_popup.findViewById(R.id.schedule_name);
@@ -229,6 +256,9 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "New schedule created.", Toast.LENGTH_SHORT).show();
+                firebaseRoot.child(uid).child("Schedules").push().setValue(new_schedule.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(new_schedule.getText().toString()).child("Name").setValue(new_schedule.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(new_schedule.getText().toString()).child("Occasion").setValue(ocas_schedule.getText().toString());
                 new_dialog.dismiss();
             }
         });

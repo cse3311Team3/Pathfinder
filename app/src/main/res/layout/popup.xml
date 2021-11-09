@@ -33,23 +33,15 @@
             <Spinner
                 android:id="@+id/spinner3"
                 android:layout_width="match_parent"
-                android:layout_height="60dp" />
-
-            <EditText
-                android:id="@+id/name_schedule"
-                android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:drawableLeft="@drawable/ic_baseline_add_24"
-                android:ems="10"
-                android:layout_marginTop="35dp"
                 android:layout_marginLeft="25dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginRight="25dp"
-                android:inputType="textPersonName"
-                android:hint="Schedule Name"
-                app:layout_constraintBottom_toTopOf="@+id/address_one"
+                app:layout_constraintBottom_toTopOf="@+id/postal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/city"
+                tools:ignore="SpeakableTextPresentCheck"
                 tools:layout_conversion_absoluteHeight="75dp"
                 tools:layout_conversion_absoluteWidth="432dp" />
 
