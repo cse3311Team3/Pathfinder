@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CreateSchedule extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
-
+//test
     private Button create_button;
     private Button add_location;
     private AlertDialog.Builder dialogbuilder;
