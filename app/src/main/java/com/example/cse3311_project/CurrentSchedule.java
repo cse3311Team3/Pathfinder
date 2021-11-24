@@ -77,18 +77,22 @@ public class CurrentSchedule extends AppCompatActivity{
         firebaseRoot.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapShot) {
-                address = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
-                city = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString();
-                state = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
-                zip = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
 
-                occasion = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Occasion").getValue().toString();
+                if (dataSnapShot.child(uid).child("Schedules").exists()) {
+                    address = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
+                    city = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString();
+                    state = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
+                    zip = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
 
+                    occasion = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Occasion").getValue().toString();
+                }
 
+                if(address != null  && city != null && state != null && zip != null && occasion != null  ){
 
-                //make the separate address into one
-                fullAddress.setText(address + ", " + city + ", " + state + " " + zip);
-                occasionText.setText(occasion);
+                    //make the separate address into one
+                    fullAddress.setText(address + ", " + city + ", " + state + " " + zip);
+                    occasionText.setText(occasion);
+                }
             }
 
             @Override
