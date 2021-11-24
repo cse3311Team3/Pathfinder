@@ -36,8 +36,8 @@ public class CurrentSchedule extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseRoot, firebaseRoot2;
     private Spinner pickScheduleSpinner;
-    String address, city, state, zip;
-    TextView fullAddress;
+    String address, city, state, zip, occasion;
+    TextView fullAddress, occasionText;
 
     List<String> scheduleList = new ArrayList();
 
@@ -82,9 +82,13 @@ public class CurrentSchedule extends AppCompatActivity{
                 state = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
                 zip = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
 
-                //make the
-                fullAddress.setText(address + ", " + city + ", " + state + " " + zip);
+                occasion = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Occasion").getValue().toString();
 
+
+
+                //make the separate address into one
+                fullAddress.setText(address + ", " + city + ", " + state + " " + zip);
+                occasionText.setText(occasion);
             }
 
             @Override
@@ -95,7 +99,7 @@ public class CurrentSchedule extends AppCompatActivity{
 
 
         fullAddress = findViewById(R.id.textView6);
-
+        occasionText = findViewById(R.id.textView8);
     }
 //
 //    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
