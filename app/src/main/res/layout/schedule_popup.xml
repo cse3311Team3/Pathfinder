@@ -55,7 +55,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:inputType="textPersonName"
-                android:hint="  Schedule Ocsasion"
+                android:hint="  Schedule Ocassion"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"

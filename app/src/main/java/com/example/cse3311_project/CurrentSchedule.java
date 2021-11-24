@@ -1,94 +1,114 @@
 package com.example.cse3311_project;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class CurrentSchedule extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CurrentSchedule extends AppCompatActivity{
+
+
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference firebaseRoot, firebaseRoot2;
+    private Spinner pickScheduleSpinner;
+    String address, city, state, zip;
+    TextView fullAddress;
+
+    List<String> scheduleList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_schedule);
 
-        // adding toolbar to the current schedule page
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        
-        // schedule buttons - implementation left
-        Button current_schedule1 = (Button)findViewById(R.id.schdeule1);
-        current_schedule1.setOnClickListener(new View.OnClickListener() {
+
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseRoot = FirebaseDatabase.getInstance().getReference();
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String uid = user.getUid();
+//        firebaseRoot.child(uid).child("Schedules").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                scheduleList.clear();
+//                for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
+//                    String name = locationSnapshot.child("Name").getValue(String.class);
+//
+//                    if(name != null){
+//                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
+//                        scheduleList.add(name);
+//                    }
+//
+//                }}
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }});
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        firebaseRoot = FirebaseDatabase.getInstance().getReference();
+        firebaseRoot.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "You can see your current schedule here. Implementation Left", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapShot) {
+                address = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
+                city = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString();
+                state = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
+                zip = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
+
+                //make the
+                fullAddress.setText(address + ", " + city + ", " + state + " " + zip);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        Button current_schedule2 = (Button)findViewById(R.id.schedule2);
-        current_schedule2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "You can see your current schedule here. Implementation Left", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        Button current_schedule3 = (Button)findViewById(R.id.schedule3);
-        current_schedule3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "You can see your current schedule here. Implementation Left", Toast.LENGTH_SHORT).show();
-            }
-        });
+        fullAddress = findViewById(R.id.textView6);
+
     }
+//
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        if(parent.getId() == R.id.spinner4)
+//        {
+//            String text = parent.getItemAtPosition(position).toString();
+//            scheduleName = text;
+//        }
+//    }
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
 
 
-    // menu inflater
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu,menu);
-//        return true;
-//    }
-//
-//    // menu options
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if(id == R.id.user_profile)
-//        {
-//            Intent i = new Intent(this, UserProfile.class);
-//            startActivity(i); // if user clicks user profile, go to user profile page
-//        }
-//        else if (id == R.id.settings)
-//        {
-//            Intent i = new Intent(this, SettingsActivity.class);
-//            startActivity(i); // if user clicks settings, go to settings page
-//        }
-//        else if (id == R.id.about)
-//        {
-//            Intent i = new Intent(this, AboutActivity.class);
-//            startActivity(i); // if user clicks about, go to about page
-//        }
-//        else if (id == R.id.log_out)
-//        {
-//            Context context = getApplicationContext();
-//            CharSequence text = "Successfully logged out - left authentication!"; //firebase authentication left
-//            int duration = Toast.LENGTH_SHORT;
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
-//            Intent i = new Intent(this, MainActivity.class);
-//            startActivity(i); //go to login page
-//        }
-//
-//        return true;
-//    }
 }
