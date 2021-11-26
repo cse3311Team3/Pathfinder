@@ -13,10 +13,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener  {
 
     public CardView current_schedule, create_schedule, edit_route, view_map, list_view;
+
+
+    private DatabaseReference firebaseRoot1;
+    public static String address, city, state, zip, fullAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,39 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
         edit_route.setOnClickListener(this);
         view_map.setOnClickListener(this);
         list_view.setOnClickListener(this);
+
+
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        firebaseRoot1 = FirebaseDatabase.getInstance().getReference();
+        firebaseRoot1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
+
+                if (dataSnapShot3.child(uid).child("Schedules").exists()) {
+                    address = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
+                    city = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString();
+                    state = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
+                    zip = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
+
+
+                    fullAddress = address + ", " + city + ", " + state + " " + zip;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
     }
     
     // menu inflater 

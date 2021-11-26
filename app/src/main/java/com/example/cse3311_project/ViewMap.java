@@ -6,9 +6,12 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -22,26 +25,43 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+import java.util.List;
 //import com.example.cse3311_project.databinding.ActivityViewMap2Binding;
 
 
 public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "MapsActivity";
+
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private GoogleMap mMap;
-
+    private DatabaseReference firebaseRoot1;
+//    String address, city, state, zip, fullAddress;
+    private Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+//        getAddress();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
 
         mapFragment.getMapAsync(this);
+        geocoder = new Geocoder(this);
     }
 
 
@@ -49,17 +69,38 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        getDeviceLocation();
+//        getDeviceLocation();      Zooms in on Device location
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
-//        LatLng UTA = new LatLng(-34.0, 151.0);
-//        mMap.addMarker(new MarkerOptions()
-//                .position(UTA)
-//                .title("UTA"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(UTA));
+
+        // Retrieves the given address
+        String fAddress = HomePage.fullAddress;
+        try {
+            List <Address> addresses = geocoder.getFromLocationName(fAddress, 1);
+
+            if (addresses.size() > 0){
+                Address address = addresses.get(0);
+//                Log.d(TAG, "OnMapReady: " + address.toString());
+                LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(location)
+                        .title(address.getLocality());
+
+
+                mMap.addMarker(markerOptions);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
+
+
 
 
     private void getDeviceLocation(){
