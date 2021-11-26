@@ -82,7 +82,7 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
 
             if (addresses.size() > 0){
                 Address address = addresses.get(0);
-//                Log.d(TAG, "OnMapReady: " + address.toString());
+                Log.d(TAG, "OnMapReady: " + address.toString());
                 LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
                 MarkerOptions markerOptions = new MarkerOptions()
                         .position(location)
@@ -91,6 +91,17 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
 
                 mMap.addMarker(markerOptions);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
+
+
+                //////////Adding another Location:
+//                LatLng location2 = new LatLng(37.3783, -122.0777);
+//                MarkerOptions markerOptions2 = new MarkerOptions()
+//                        .position(location2)
+//                        .title("Market");
+//
+//                mMap.addMarker(markerOptions2);
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location2, 16));
+
             }
 
         } catch (IOException e) {

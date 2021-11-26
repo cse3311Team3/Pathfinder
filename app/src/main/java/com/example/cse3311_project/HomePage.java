@@ -64,14 +64,17 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
             public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
 
                 if (dataSnapShot3.child(uid).child("Schedules").exists()) {
-                    address = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
-                    city = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString();
-                    state = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
-                    zip = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
+                    if(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Address One").exists()) {
+                        address = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
+                        city = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString();
+                        state = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("State").getValue().toString();
+                        zip = dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString();
 
 
-                    fullAddress = address + ", " + city + ", " + state + " " + zip;
+                        fullAddress = address + ", " + city + ", " + state + " " + zip;
+                    }
                 }
+
             }
 
             @Override
