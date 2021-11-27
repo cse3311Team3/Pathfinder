@@ -367,8 +367,8 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
                 address_oneStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Address One").getValue().toString();
                 address_twoStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Address Two").getValue().toString();
                 cityStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("City").getValue().toString();
-                postal_codeStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Country").getValue().toString();
-                countryStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Postal Code").getValue().toString();
+                postal_codeStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Postal Code").getValue().toString();
+                countryStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Country").getValue().toString();
                 stateStr = snapshot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("State").getValue().toString();
 
                 address_one.setText(address_oneStr);
@@ -471,7 +471,7 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
 
 
         }
-        else if(parent.getId() == R.id.states)
+        else if(parent.getId() == R.id.statesEdit)
         {
             String text = parent.getItemAtPosition(position).toString();
             stateAbb = text;
