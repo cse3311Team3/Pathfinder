@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 //import com.example.cse3311_project.databinding.ActivityViewMap2Binding;
 
@@ -46,19 +47,29 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private GoogleMap mMap;
     private DatabaseReference firebaseRoot1;
-//    String address, city, state, zip, fullAddress;
     private Geocoder geocoder;
+
+    ArrayList<String> keyArrayList;
+    ArrayList<String> addressArrayList;
+    ArrayList<String> cityArrayList;
+    ArrayList<String> stateArrayList;
+    ArrayList<String> zipArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-//        getAddress();
+        addressArrayList = new ArrayList<>();
+        cityArrayList = new ArrayList<>();
+        stateArrayList = new ArrayList<>();
+        zipArrayList = new ArrayList<>();
+        keyArrayList = new ArrayList<>();
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
 
         mapFragment.getMapAsync(this);
         geocoder = new Geocoder(this);
@@ -75,39 +86,67 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
         }
         mMap.setMyLocationEnabled(true);
 
-        // Retrieves the given address
-        String fAddress = HomePage.fullAddress;
-        try {
-            List <Address> addresses = geocoder.getFromLocationName(fAddress, 1);
 
-            if (addresses.size() > 0){
-                Address address = addresses.get(0);
-                Log.d(TAG, "OnMapReady: " + address.toString());
-                LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .position(location)
-                        .title(address.getLocality());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        firebaseRoot1 = FirebaseDatabase.getInstance().getReference();
+        firebaseRoot1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
+                // Getting values from Locations
+                if (dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").exists()) {
+                    for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
+                        keyArrayList.add(ds.getKey());
+                    }
+//                    Log.d("Locations: ", keyArrayList.toString());
+                    for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
+                        String locationName = ds.getValue().toString();
+                        if (keyArrayList.contains(locationName)) {
+                            addressArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("Address One").getValue().toString());
+                            cityArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("City").getValue().toString());
+                            stateArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("State").getValue().toString());
+                            zipArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("Postal Code").getValue().toString());
+                        }
+                    }
+//                    Log.d("SNAP: ", addressArrayList.toString());
+//                    Log.d("SNAP: ", cityArrayList.toString());
+//                    Log.d("SNAP: ", stateArrayList.toString());
+//                    Log.d("SNAP: ", zipArrayList.toString());
 
 
-                mMap.addMarker(markerOptions);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16));
+                    // Marking locations on map:
+                    for (int i = 0; i < addressArrayList.size(); i++) {
+                        String fAddress = addressArrayList.get(i) + ", " + cityArrayList.get(i) + ", " + stateArrayList.get(i) + " " + zipArrayList.get(i);
+//                        Log.d("Addy: ", fAddress);
+
+                            try {
+                                List<Address> addresses = geocoder.getFromLocationName(fAddress, 1);
+
+                                if (addresses.size() > 0) {
+                                    Address address = addresses.get(0);
+                                    Log.d(TAG, "OnMapReady: " + address.toString());
+                                    LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+                                    MarkerOptions markerOptions = new MarkerOptions()
+                                            .position(location)
+                                            .title(address.getLocality());
 
 
-                //////////Adding another Location:
-//                LatLng location2 = new LatLng(37.3783, -122.0777);
-//                MarkerOptions markerOptions2 = new MarkerOptions()
-//                        .position(location2)
-//                        .title("Market");
-//
-//                mMap.addMarker(markerOptions2);
-//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location2, 16));
+                                    mMap.addMarker(markerOptions);
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
+
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        });
 
     }
 
@@ -133,7 +172,6 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
                         }
                     }
                 });
-            //}
         }catch (SecurityException e){
         }
     }
