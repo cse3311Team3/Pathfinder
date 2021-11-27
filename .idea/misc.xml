@@ -35,6 +35,7 @@
         <entry key="..\:/Pathfinder/app/src/main/res/layout/schedule_popup.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2875" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/account_create.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_edit_schedule.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_home_page.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_main.xml" value="0.25317028985507245" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_maps.xml" value="0.2713541666666667" />
@@ -42,8 +43,11 @@
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_user_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_view_map.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/activity_view_map2.xml" value="0.22" />
+        <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/edit_location_popup.xml" value="0.2713541666666667" />
+        <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/edit_popup.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/page_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/popup.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/schedule_list_popup.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/mstokes99/AndroidStudioProjects/CSE3311Project/app/src/main/res/layout/schedule_popup.xml" value="0.22552083333333334" />
       </map>
     </option>

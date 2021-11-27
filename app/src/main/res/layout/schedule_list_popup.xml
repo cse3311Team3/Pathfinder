@@ -27,6 +27,11 @@
                 app:srcCompat="@drawable/edit_schedule"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <Spinner
+                android:id="@+id/schedule_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="51dp" />
+
             <Button
                 android:id="@+id/schdeule1"
                 android:layout_width="match_parent"
@@ -72,20 +77,35 @@
             <!--            app:layout_constraintTop_toTopOf="@+id/imageButton"-->
             <!--            app:layout_constraintVertical_bias="0.709" />-->
 
-<!--            <Button-->
-<!--                android:id="@+id/button_save"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:layout_marginLeft="100dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginRight="100dp"-->
-<!--                android:text="Save"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.145"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintVertical_bias="0.874" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/button_save"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="60dp"-->
+            <!--                android:layout_marginLeft="100dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_marginRight="100dp"-->
+            <!--                android:text="Save"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.145"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintVertical_bias="0.874" />-->
+
+            <Button
+                android:id="@+id/button_select"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="100dp"
+                android:text="Select"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.854"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.874" />
 
             <Button
                 android:id="@+id/button_cancel"
@@ -101,6 +121,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.874" />
+
         </LinearLayout>
     </ScrollView>
 

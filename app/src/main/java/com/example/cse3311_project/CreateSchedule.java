@@ -43,12 +43,13 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
     private AlertDialog.Builder dialogbuilder_next;
     private AlertDialog dialog;
     private AlertDialog new_dialog;
-    private EditText name_schedule, address_one, address_two, city, postal_code, country;
+    private EditText name_schedule, loc_name, address_one, address_two, city, postal_code, country;
     private Button cancel, save;
     private Spinner spinner, spinner2;
     private Button date_bt, cancel_bt, save_bt;
     private EditText new_schedule, ocas_schedule;
     String stateAbb, scheduleName;
+    String name_scheduleStr, loc_nameStr, address_oneStr, address_twoStr, cityStr, postal_codeStr, countryStr;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseRoot, firebaseRoot2;
     List<String> scheduleList = new ArrayList();
@@ -116,6 +117,7 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
 
         // use these later for implementation
         name_schedule = (EditText) location_popup.findViewById(R.id.name_schedule);
+        loc_name = (EditText) location_popup.findViewById(R.id.loc_name);
         address_one = (EditText) location_popup.findViewById(R.id.address_one);
         address_two = (EditText) location_popup.findViewById(R.id.address_two);
         city= (EditText) location_popup.findViewById(R.id.city);
@@ -156,13 +158,17 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loc_nameStr = loc_name.getText().toString();
+
                 Toast.makeText(getApplicationContext(), "Location saved to the schedule.", Toast.LENGTH_SHORT).show();
-                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Address One").setValue(address_one.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Address Two").setValue(address_two.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("City").setValue(city.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Postal Code").setValue(postal_code.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Country").setValue(country.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("State").setValue(stateAbb);
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").push().setValue(loc_name.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("Location Name").setValue(loc_name.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("Address One").setValue(address_one.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("Address Two").setValue(address_two.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("City").setValue(city.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("Postal Code").setValue(postal_code.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("Country").setValue(country.getText().toString());
+                firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").child(loc_name.getText().toString()).child("State").setValue(stateAbb);
                 dialog.dismiss();
             }
         });

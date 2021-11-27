@@ -41,11 +41,13 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
     private AlertDialog dialog;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference firebaseRoot, firebaseRoot2;
-    private Spinner spinner, spinner2;
-    private Button cancel, save;
-    String stateAbb, scheduleName;
+    private Spinner spinner, spinner2, spinner3, spinner4;
+    private Button cancel, save, select;
+    String stateAbb, scheduleName, locationName;
 
     List<String> scheduleList = new ArrayList();
+    List<String> locationList = new ArrayList();
+
 
     EditText address_one, address_two, city, postal_code, country;
 
@@ -191,7 +193,36 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         dialog = dialogbuilder.create();
         dialog.show();
 
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        firebaseRoot.child(uid).child("Schedules").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                scheduleList.clear();
+                for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
+                    String name = locationSnapshot.child("Name").getValue(String.class);
+                    if(name != null){
+                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
+                        scheduleList.add(name);
+                    }
+
+                }}
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }});
+
+        spinner4 = edit_location.findViewById(R.id.schedule_spinner);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, scheduleList);
+        adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner4.setAdapter(adapter4);
+        spinner4.setOnItemSelectedListener(this);
+
         //use these later for implementation
+        Button select = (Button) edit_location.findViewById(R.id.button_select);
         Button schedule1 = (Button) edit_location.findViewById(R.id.schdeule1);
 //        Button schedule2 = (Button)edit_location.findViewById(R.id.schedule2);
 //        Button schedule3 = (Button)edit_location.findViewById(R.id.schedule3);
@@ -206,7 +237,16 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
             public void onClick(View view) {
                 //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
                 //dialog.dismiss();
-                location_edit_popup();
+                location_edit_popup(scheduleName);
+            }
+        });
+
+        select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
+                //dialog.dismiss();
+                location_edit_popup(scheduleName);
             }
         });
 
@@ -244,8 +284,9 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+
     // dialog pop up for editing location
-    public void location_edit_popup()
+    public void location_edit_popup(String scheduleName)
     {
         dialogbuilder = new AlertDialog.Builder(this);
         final View edit_location = getLayoutInflater().inflate(R.layout.edit_location_popup, null);
@@ -254,47 +295,45 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         dialog.show();
 
 
+
         Button location1 = (Button) edit_location.findViewById(R.id.location1);
         Button location2 = (Button)edit_location.findViewById(R.id.location2);
         Button location3 = (Button)edit_location.findViewById(R.id.location3);
         Button save = (Button)edit_location.findViewById(R.id.but_save);
         Button cancel = (Button)edit_location.findViewById(R.id.but_cancel);
+        Toast.makeText(getApplicationContext(), scheduleName, Toast.LENGTH_SHORT).show();
+
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
-
-        firebaseRoot = FirebaseDatabase.getInstance().getReference();
-        firebaseRoot.addValueEventListener(new ValueEventListener() {
+        firebaseRoot.child(uid).child("Schedules").child(scheduleName).child("Locations").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapShot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                locationList.clear();
+                for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
+                    String name = locationSnapshot.child("Location Name").getValue(String.class);
+                    if(name != null){
+                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
+                        locationList.add(name);
+                    }
 
-                if (dataSnapShot.child(uid).child("Schedules").exists()) {
-                    addressName = dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString();
-
-
-
-                    location1.setText(addressName);
-
-                }
-
-            }
+                }}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-
-
-
-
-
+            }});
+        spinner4 = edit_location.findViewById(R.id.location_spinner);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, locationList);
+        adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner4.setAdapter(adapter4);
+        spinner4.setOnItemSelectedListener(this);
         // implementation left - locations listed currently
         location1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editLocationDialog();
 
             }
         });
@@ -316,8 +355,7 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Change location Successful", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                editLocationDialog(locationName, scheduleName);
             }
         });
 
@@ -330,103 +368,37 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
-    public void editLocationDialog()
+    public void editLocationDialog(String locationName, String scheduleName)
     {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String uid = user.getUid();
         dialogbuilder2 = new AlertDialog.Builder(this);
         final View location_popup = getLayoutInflater().inflate(R.layout.edit_popup, null);
 
-        // use these later for implementation
-//        name_schedule = (EditText) location_popup.findViewById(R.id.name_schedule);
-        address_one = (EditText) location_popup.findViewById(R.id.address1Edit);
-        address_two = (EditText) location_popup.findViewById(R.id.address2Edit);
-        city= (EditText) location_popup.findViewById(R.id.cityEdit);
-        postal_code = (EditText) location_popup.findViewById(R.id.postalEdit);
-        country = (EditText) location_popup.findViewById(R.id.countryEdit);
 
-        spinner2 = location_popup.findViewById(R.id.MySchedule);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, scheduleList);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
-        spinner2.setOnItemSelectedListener(this);
-
-        //Spinner for states
-        spinner = location_popup.findViewById(R.id.statesEdit);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.states, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
-        cancel = (Button) location_popup.findViewById(R.id.cancel_buttonEdit);
-        save = (Button) location_popup.findViewById(R.id.save_buttonEdit);
-
-        dialogbuilder2.setView(location_popup);
-        dialog = dialogbuilder2.create();
-        dialog.show();
-
-
-//        address_one.setText(firebaseRoot.child("Schedules").child("My Schedule").child("Address One"));
-        firebaseRoot.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapShot) {
-
-                if (dataSnapShot.child(uid).child("Schedules").exists()) {
-                    address_one.setText(dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Address One").getValue().toString());
-                    city.setText(dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("City").getValue().toString());
-//                    spinner.setSelection(dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("State").getValue());
-                    postal_code.setText(dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Postal Code").getValue().toString());
-                    country.setText(dataSnapShot.child(uid).child("Schedules").child("My Schedule").child("Country").getValue().toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // define cancel button
-                Toast.makeText(getApplicationContext(), "Location Not saved.", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Location saved to the schedule.", Toast.LENGTH_SHORT).show();
-                firebaseRoot.child(uid).child("Schedules").child("My Schedule").child("Address One").setValue(address_one.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child("My Schedule").child("Address Two").setValue(address_two.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child("My Schedule").child("City").setValue(city.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child("My Schedule").child("Postal Code").setValue(postal_code.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child("My Schedule").child("Country").setValue(country.getText().toString());
-                firebaseRoot.child(uid).child("Schedules").child("My Schedule").child("State").setValue(stateAbb);
-                dialog.dismiss();
-            }
-        });
 
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(parent.getId() == R.id.spinner3)
+        if(parent.getId() == R.id.schedule_spinner)
         {
             String text = parent.getItemAtPosition(position).toString();
             scheduleName = text;
         }
-        if(parent.getId() == R.id.statesEdit)
+        else if(parent.getId() == R.id.location_spinner)
+        {
+            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
+            String text = parent.getItemAtPosition(position).toString();
+            locationName = text;
+        }
+        else if(parent.getId() == R.id.states)
         {
             String text = parent.getItemAtPosition(position).toString();
             stateAbb = text;
         }
+
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
