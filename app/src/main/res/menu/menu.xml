@@ -5,9 +5,9 @@
         android:title="User Profile"
         android:icon="@drawable/ic_userprofile"
         android:id="@+id/user_profile"/>
-    <item
-        android:title="Settings"
-        android:id="@+id/settings"/>
+<!--    <item-->
+<!--        android:title="Settings"-->
+<!--        android:id="@+id/settings"/>-->
     <item
         android:title="About"
         android:id="@+id/about"/>

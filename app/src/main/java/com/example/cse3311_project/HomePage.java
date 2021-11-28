@@ -30,12 +30,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
     public CardView current_schedule, create_schedule, edit_route, view_map, list_view;
 
 
-//    private DatabaseReference firebaseRoot1;
-//    public static String address, city, state, zip, fullAddress;
-//    String scheduleName, locName;
-//
-//    ArrayList <String> locationArrayList;
-//    ArrayList <String> keyArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,11 +74,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
             Intent i = new Intent(this, UserProfile.class);
             startActivity(i); // if user clicks user profile, go to user profile page
         }
-        else if (id == R.id.settings)
-        {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i); // if user clicks settings, go to settings page
-        }
+//        else if (id == R.id.settings)
+//        {
+//            Intent i = new Intent(this, SettingsActivity.class);
+//            startActivity(i); // if user clicks settings, go to settings page
+//        }
         else if (id == R.id.about)
         {
             Intent i = new Intent(this, AboutActivity.class);

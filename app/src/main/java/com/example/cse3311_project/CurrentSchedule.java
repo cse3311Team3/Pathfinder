@@ -150,7 +150,7 @@ public class CurrentSchedule extends AppCompatActivity implements AdapterView.On
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = adapterView.getItemAtPosition(i).toString();
         scheduleName = text;
-        Toast.makeText(this, scheduleName, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, scheduleName, Toast.LENGTH_SHORT).show();
         Log.v("ScheduleName", scheduleName);
     }
 

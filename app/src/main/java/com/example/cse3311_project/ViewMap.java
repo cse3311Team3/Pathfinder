@@ -231,8 +231,8 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback, Ad
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
                     // Getting values from Locations
-                    if (dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").exists()) {
-                        for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
+                    if (dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").exists()) {
+                        for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").getChildren()) {
                             keyArrayList.add(ds.getKey());
                         }
 //                    Log.d("Locations: ", keyArrayList.toString());
