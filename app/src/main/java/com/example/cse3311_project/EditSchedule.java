@@ -82,7 +82,8 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
             public void onCancelled(@NonNull DatabaseError error) {
 
             }});
-
+            int x = scheduleList.size();
+            Log.v("size", "size"+x);
 
 
 //        edit_button = (Button)findViewById(R.id.edit_schedule);
@@ -216,7 +217,8 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
             public void onCancelled(@NonNull DatabaseError error) {
 
             }});
-
+        int x = scheduleList.size();
+        Log.v("size", "size"+x);
         spinner4 = edit_location.findViewById(R.id.schedule_spinner);
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, scheduleList);

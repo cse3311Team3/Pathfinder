@@ -7,10 +7,12 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Distance extends AppCompatActivity implements GeoTask.Geo {
+public class Distance extends AppCompatActivity implements GeoTask.Geo, AdapterView.OnItemSelectedListener {
     Button btn_get;
     String str_from,str_to;
     String fAddress;
@@ -48,7 +50,8 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
     double lat, lng;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private DatabaseReference firebaseRoot1;
-
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference firebaseRoot;
     int counter = 0;
     int c = 0;
 
@@ -63,13 +66,18 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
     ArrayList<Integer> orderedArrayList;
     ArrayList<String> finalArrayList;
     HashMap<Integer, String> hash_map;
-
+    List<String> scheduleList = new ArrayList();
     ListView listViewOrdered;
+    private Spinner spinner;
+    String scheduleName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distance);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
         listViewOrdered = (ListView)findViewById(R.id.listviewOrdered);
 
@@ -90,52 +98,82 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
 
         getDeviceLocation();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        firebaseRoot1 = FirebaseDatabase.getInstance().getReference();
-        firebaseRoot1.addValueEventListener(new ValueEventListener() {
+        spinner = findViewById(R.id.schedule_spinner2);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, scheduleList);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseRoot = FirebaseDatabase.getInstance().getReference();
+        firebaseRoot.child(uid).child("Schedules").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
-                // Getting values from Locations
-                if (dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").exists()) {
-                    for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
-                        keyArrayList.add(ds.getKey());
-                    }
-                    for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
-                        String locationName = ds.getValue().toString();
-                        if (keyArrayList.contains(locationName)) {
-                            addressArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("Address One").getValue().toString());
-                            cityArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("City").getValue().toString());
-                            stateArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("State").getValue().toString());
-                            zipArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("Postal Code").getValue().toString());
-                        }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //scheduleList.clear();
+                for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
+                    String name = locationSnapshot.child("Name").getValue(String.class);
+                    if(name != null){
+                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
+                        scheduleList.add(name);
+                        adapter.notifyDataSetChanged();
                     }
 
-
-                    // Getting locations and parsing them:
-                    for (int i = 0; i < addressArrayList.size(); i++) {
-                        fullAddressArrayList.add(addressArrayList.get(i) + ", " + cityArrayList.get(i) + ", " + stateArrayList.get(i) + " " + zipArrayList.get(i));
-
-                        String addressParsed = addressArrayList.get(i).replace(" ", "+");
-                        String cityParsed = cityArrayList.get(i).replace(" ", "+");
-
-                        fAddress = addressParsed + "," + cityParsed;
-                        unorderedArrayList.add(fAddress);
-                    }
-                }
-            }
+                }}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+            }});
+        int x = scheduleList.size();
+        //Toast.makeText(Distance.this, x, Toast.LENGTH_SHORT).show();
+        Log.v("ScheduleName", "size" + x);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
 
 
         btn_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseRoot1 = FirebaseDatabase.getInstance().getReference();
+                firebaseRoot1.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
+                        // Getting values from Locations
+                        if (dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").exists()) {
+                            for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").getChildren()) {
+                                keyArrayList.add(ds.getKey());
+                            }
+                            for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").getChildren()) {
+                                String locationName = ds.getValue().toString();
+                                if (keyArrayList.contains(locationName)) {
+                                    addressArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Address One").getValue().toString());
+                                    cityArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("City").getValue().toString());
+                                    stateArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("State").getValue().toString());
+                                    zipArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Postal Code").getValue().toString());
+                                }
+                            }
+
+
+                            // Getting locations and parsing them:
+                            for (int i = 0; i < addressArrayList.size(); i++) {
+                                fullAddressArrayList.add(addressArrayList.get(i) + ", " + cityArrayList.get(i) + ", " + stateArrayList.get(i) + " " + zipArrayList.get(i));
+
+                                String addressParsed = addressArrayList.get(i).replace(" ", "+");
+                                String cityParsed = cityArrayList.get(i).replace(" ", "+");
+
+                                fAddress = addressParsed + "," + cityParsed;
+                                unorderedArrayList.add(fAddress);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
                 String Lat_Lng = lat + "," + lng;
 
@@ -206,5 +244,17 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text = adapterView.getItemAtPosition(i).toString();
+        scheduleName = text;
+        Toast.makeText(Distance.this, scheduleName, Toast.LENGTH_SHORT).show();
+        Log.v("ScheduleName", scheduleName);
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        //Toast.makeText(Distance.this, scheduleName, Toast.LENGTH_SHORT).show();
+        Log.v("nothing", "nothing");
+    }
 }
