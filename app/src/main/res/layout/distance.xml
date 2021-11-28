@@ -9,58 +9,18 @@
     android:paddingTop="16dp"
     tools:context=".Distance">
 
+    <ListView
+        android:id="@+id/listviewOrdered"
+        android:layout_width="wrap_content"
+        android:layout_height="623dp" />
+
     <Button
         android:id="@+id/button_get"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="GET DIRECTIONS" />
+        android:text="GET ORDER" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_info"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/str_info"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/editText_from"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_info"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="20dp"
-        android:hint="@string/txt_start"
-        android:textStyle="italic" />
-
-    <EditText
-        android:id="@+id/editText_to"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_from"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:hint="@string/txt_dstn"
-        android:textStyle="italic" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_result2"
-        android:layout_above="@+id/textView_result1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_result1"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

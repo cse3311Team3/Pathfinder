@@ -1,6 +1,6 @@
 package com.example.cse3311_project;
 
-//Some code was used from this source: https://github.com/vastavch/GoogleMapsDistanceMatrixAPI_Demo
+//code was used from this source: https://github.com/vastavch/GoogleMapsDistanceMatrixAPI_Demo
 
 import android.app.ProgressDialog;
 import android.content.Context;

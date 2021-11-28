@@ -7,8 +7,10 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,10 +41,8 @@ import java.util.List;
 
 
 public class Distance extends AppCompatActivity implements GeoTask.Geo {
-    EditText edttxt_from,edttxt_to;
     Button btn_get;
     String str_from,str_to;
-    TextView tv_result1,tv_result2;
     String fAddress;
 
     double lat, lng;
@@ -61,12 +61,17 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
 
     ArrayList<String> unorderedArrayList;
     ArrayList<Integer> orderedArrayList;
+    ArrayList<String> finalArrayList;
     HashMap<Integer, String> hash_map;
+
+    ListView listViewOrdered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distance);
+
+        listViewOrdered = (ListView)findViewById(R.id.listviewOrdered);
 
         addressArrayList = new ArrayList<>();
         cityArrayList = new ArrayList<>();
@@ -75,12 +80,14 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
         keyArrayList = new ArrayList<>();
         orderedArrayList = new ArrayList<>();
         unorderedArrayList = new ArrayList<>();
-
+        finalArrayList = new ArrayList<>();
         fullAddressArrayList = new ArrayList<>();
+
 
         hash_map = new HashMap<Integer, String>();
 
-        initialize();
+        btn_get= (Button) findViewById(R.id.button_get);
+
         getDeviceLocation();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -94,7 +101,6 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
                     for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
                         keyArrayList.add(ds.getKey());
                     }
-//                    Log.d("Locations: ", keyArrayList.toString());
                     for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
                         String locationName = ds.getValue().toString();
                         if (keyArrayList.contains(locationName)) {
@@ -104,13 +110,9 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
                             zipArrayList.add(dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").child(locationName).child("Postal Code").getValue().toString());
                         }
                     }
-//                    Log.d("SNAP: ", addressArrayList.toString());
-//                    Log.d("SNAP: ", cityArrayList.toString());
-//                    Log.d("SNAP: ", stateArrayList.toString());
-//                    Log.d("SNAP: ", zipArrayList.toString());
 
 
-                    // Marking locations on map:
+                    // Getting locations and parsing them:
                     for (int i = 0; i < addressArrayList.size(); i++) {
                         fullAddressArrayList.add(addressArrayList.get(i) + ", " + cityArrayList.get(i) + ", " + stateArrayList.get(i) + " " + zipArrayList.get(i));
 
@@ -119,7 +121,6 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
 
                         fAddress = addressParsed + "," + cityParsed;
                         unorderedArrayList.add(fAddress);
-
                     }
                 }
             }
@@ -138,14 +139,8 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
 
                 String Lat_Lng = lat + "," + lng;
 
-//                str_from=edttxt_from.getText().toString();
-//                str_to=edttxt_to.getText().toString();
-                Log.d("SNAP: ", unorderedArrayList.toString());
-
-
                 for (int x = 0; x < unorderedArrayList.size(); x++) {
                     str_from = Lat_Lng;
-//                    str_to = fAddress;
                     str_to = unorderedArrayList.get(x);
                     String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str_from + "&destinations=" + str_to + "&mode=driving&language=fr-FR&avoid=tolls&key=AIzaSyDwqb3Mc7o9iyi7eyavU4AG53radkNaRaM";
                     new GeoTask(Distance.this).execute(url);
@@ -156,6 +151,7 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
 
     }
 
+    //The final returned function:
     @Override
     public void setDouble(String result) {
         String res[]=result.split(",");
@@ -174,45 +170,16 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo {
         if (unorderedArrayList.size() == counter) {
             Collections.sort(orderedArrayList);
             counter++;
-//            Log.d("SNAP: ", hash_map.get(5));
 
             for (int z = 0; z < orderedArrayList.size(); z++) {
-                hash_map.get(orderedArrayList.get(z));
-                    //print to page instead
-                    Log.d("ORDERED: ", hash_map.get(orderedArrayList.get(z)));
-
+                finalArrayList.add(hash_map.get(orderedArrayList.get(z)));
              }
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, finalArrayList);
+            listViewOrdered.setAdapter(arrayAdapter);
 
         }
-
-        tv_result1.setText("Duration= " + (int) (min / 60) + " hr " + (int) (min % 60) + " mins");
-        tv_result2.setText("Distance= " + dist + " mi");
-
-//
-//        for (int z = 0; z < orderedArrayList.size(); z++) {
-//            if (hash_map.containsKey(orderedArrayList.get(z))){
-//                //print to page instead
-//                Log.d("ORDERED: ", hash_map.get(z));
-//            }
-//
-//        }
-
-
-        Log.d("SNAP: ", hash_map.toString());
-
     }
 
-
-
-    public void initialize()
-    {
-        edttxt_from= (EditText) findViewById(R.id.editText_from);
-        edttxt_to= (EditText) findViewById(R.id.editText_to);
-        btn_get= (Button) findViewById(R.id.button_get);
-        tv_result1= (TextView) findViewById(R.id.textView_result1);
-        tv_result2=(TextView) findViewById(R.id.textView_result2);
-
-    }
 
 
     private void getDeviceLocation(){
