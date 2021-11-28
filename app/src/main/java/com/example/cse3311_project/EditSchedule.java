@@ -228,7 +228,7 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
 
         //use these later for implementation
         Button select = (Button) edit_location.findViewById(R.id.button_select);
-        Button schedule1 = (Button) edit_location.findViewById(R.id.schdeule1);
+//        Button schedule1 = (Button) edit_location.findViewById(R.id.schdeule1);
 //        Button schedule2 = (Button)edit_location.findViewById(R.id.schedule2);
 //        Button schedule3 = (Button)edit_location.findViewById(R.id.schedule3);
 //        Button save = (Button)edit_location.findViewById(R.id.button_save);
@@ -237,14 +237,14 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
 
 
         // implementation left for schedule 
-        schedule1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
-                //dialog.dismiss();
-                location_edit_popup(scheduleName);
-            }
-        });
+//        schedule1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //Toast.makeText(getApplicationContext(), "You can change schedule here. Implementation left", Toast.LENGTH_SHORT).show();
+//                //dialog.dismiss();
+//                location_edit_popup(scheduleName);
+//            }
+//        });
 
         select.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,9 +301,6 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         dialog.show();
 
 
-        Button location1 = (Button) edit_location.findViewById(R.id.location1);
-        Button location2 = (Button)edit_location.findViewById(R.id.location2);
-        Button location3 = (Button)edit_location.findViewById(R.id.location3);
         Button save = (Button)edit_location.findViewById(R.id.but_save);
         Button cancel = (Button)edit_location.findViewById(R.id.but_cancel);
         Toast.makeText(getApplicationContext(), scheduleName, Toast.LENGTH_SHORT).show();
@@ -315,27 +312,7 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner4.setAdapter(adapter4);
         spinner4.setOnItemSelectedListener(this);
-        // implementation left - locations listed currently
-        location1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
-
-        location2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "You can change location here. Implementation left", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        location3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "You can change location here. Implementation left", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -467,7 +444,7 @@ public class EditSchedule extends AppCompatActivity implements AdapterView.OnIte
         }
         else if(parent.getId() == R.id.location_spinner)
         {
-            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
             String text = parent.getItemAtPosition(position).toString();
             locationName = text;
 
