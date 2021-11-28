@@ -124,7 +124,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener 
                 startActivity(i); // if user clicks edit schedule, go to view map page
                 break;
             case R.id.c5:
-                i = new Intent(this, ListView.class);
+                i = new Intent(this, Distance.class);
                 startActivity(i); // if user clicks list view, go to list view page
                 break;
         }

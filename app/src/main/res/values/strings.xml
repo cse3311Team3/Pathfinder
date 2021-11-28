@@ -21,4 +21,9 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_view_map">ViewMap</string>
+
+    <string name="str_info">space(\" \") must be replaced with \"+\".For example Jersey City must be replaced with Jersey+City</string>
+    <string name="txt_dstn">Destination Point(city,state,country)</string>
+    <string name="txt_start">Starting Point (city,state,country)</string>
+
 </resources>
