@@ -18,140 +18,133 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:logo="@drawable/pathfinder"
-        app:title="Current Schedule">
-    </androidx.appcompat.widget.Toolbar>
+        app:title="Current Schedule"></androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="360dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="52dp"
-        android:layout_x="51dp"
-        android:layout_y="111dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Location:"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="149dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="52dp"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:gravity="center"
-        android:text="Occasion"
-        android:textSize="24sp"
+    <ListView
+        android:id="@+id/schedule_list"
+        android:layout_width="365dp"
+        android:layout_height="470dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="75dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Location 1:"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+    <Spinner
+        android:id="@+id/spinner4"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="97dp" />
+
+    <Spinner
+        android:id="@+id/schedule_spinner3"
+        android:layout_width="366dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/select_button"
+        android:layout_width="257dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginBottom="16dp"
+        android:text="Select"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolbar" />
 
 
     <!--    <Spinner-->
-<!--        android:id="@+id/spinner4"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="75dp"-->
+    <!--        android:id="@+id/spinner4"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="75dp"-->
 
-<!--        android:layout_below="@+id/toolbar"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_marginStart="48dp"-->
-<!--        android:layout_marginLeft="25dp"-->
-<!--        android:layout_marginTop="47dp"-->
-<!--        android:layout_marginEnd="63dp"-->
-<!--        android:layout_marginRight="25dp" />-->
-
-
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="vertical">-->
+    <!--        android:layout_below="@+id/toolbar"-->
+    <!--        android:layout_alignParentStart="true"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_marginStart="48dp"-->
+    <!--        android:layout_marginLeft="25dp"-->
+    <!--        android:layout_marginTop="47dp"-->
+    <!--        android:layout_marginEnd="63dp"-->
+    <!--        android:layout_marginRight="25dp" />-->
 
 
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:orientation="vertical">-->
 
 
-            <!--            <Button-->
-            <!--                android:id="@+id/schdeule1"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="75dp"-->
-            <!--                android:layout_marginLeft="25dp"-->
-            <!--                android:layout_marginTop="113dp"-->
-            <!--                android:layout_marginRight="25dp"-->
-            <!--                android:background="@drawable/rounded_button"-->
-            <!--                android:text="Current schedule - 1"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintVertical_bias="0.367" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/schdeule1"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="75dp"-->
+    <!--                android:layout_marginLeft="25dp"-->
+    <!--                android:layout_marginTop="113dp"-->
+    <!--                android:layout_marginRight="25dp"-->
+    <!--                android:background="@drawable/rounded_button"-->
+    <!--                android:text="Current schedule - 1"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toTopOf="parent"-->
+    <!--                app:layout_constraintVertical_bias="0.367" />-->
 
-            <!--            <Button-->
-            <!--                android:id="@+id/schedule2"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="75dp"-->
-            <!--                android:layout_marginTop="50dp"-->
-            <!--                android:layout_marginLeft="25dp"-->
-            <!--                android:layout_marginRight="25dp"-->
-            <!--                android:background="@drawable/rounded_button"-->
-            <!--                android:text="Current schedule - 2"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="@+id/imageButton"-->
-            <!--                app:layout_constraintVertical_bias="0.542" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/schedule2"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="75dp"-->
+    <!--                android:layout_marginTop="50dp"-->
+    <!--                android:layout_marginLeft="25dp"-->
+    <!--                android:layout_marginRight="25dp"-->
+    <!--                android:background="@drawable/rounded_button"-->
+    <!--                android:text="Current schedule - 2"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/imageButton"-->
+    <!--                app:layout_constraintVertical_bias="0.542" />-->
 
-            <!--            <Button-->
-            <!--                android:id="@+id/schedule3"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="75dp"-->
-            <!--                android:layout_marginTop="50dp"-->
-            <!--                android:layout_marginLeft="25dp"-->
-            <!--                android:layout_marginRight="25dp"-->
-            <!--                android:background="@drawable/rounded_button"-->
-            <!--                android:text="Current Schedule - 3"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="@+id/imageButton"-->
-            <!--                app:layout_constraintVertical_bias="0.709" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/schedule3"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="75dp"-->
+    <!--                android:layout_marginTop="50dp"-->
+    <!--                android:layout_marginLeft="25dp"-->
+    <!--                android:layout_marginRight="25dp"-->
+    <!--                android:background="@drawable/rounded_button"-->
+    <!--                android:text="Current Schedule - 3"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/imageButton"-->
+    <!--                app:layout_constraintVertical_bias="0.709" />-->
 
-            <!--            <Button-->
-            <!--                android:id="@+id/schedule4"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="75dp"-->
-            <!--                android:layout_marginTop="50dp"-->
-            <!--                android:layout_marginLeft="25dp"-->
-            <!--                android:layout_marginRight="25dp"-->
-            <!--                android:background="@drawable/rounded_button"-->
-            <!--                android:text="Current Schedule - 4"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="@+id/imageButton"-->
-            <!--                app:layout_constraintVertical_bias="0.709" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/schedule4"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="75dp"-->
+    <!--                android:layout_marginTop="50dp"-->
+    <!--                android:layout_marginLeft="25dp"-->
+    <!--                android:layout_marginRight="25dp"-->
+    <!--                android:background="@drawable/rounded_button"-->
+    <!--                android:text="Current Schedule - 4"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/imageButton"-->
+    <!--                app:layout_constraintVertical_bias="0.709" />-->
 
-<!--        </LinearLayout>-->
+    <!--        </LinearLayout>-->
 
-<!--    </ScrollView>-->
+    <!--    </ScrollView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
