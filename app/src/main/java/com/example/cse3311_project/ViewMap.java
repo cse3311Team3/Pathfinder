@@ -11,6 +11,10 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +44,7 @@ import java.util.List;
 //import com.example.cse3311_project.databinding.ActivityViewMap2Binding;
 
 
-public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
+public class ViewMap extends AppCompatActivity implements OnMapReadyCallback, AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "MapsActivity";
 
@@ -48,6 +52,9 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private DatabaseReference firebaseRoot1;
     private Geocoder geocoder;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference firebaseRoot;
+    private Spinner spinner;
 
     ArrayList<String> keyArrayList;
     ArrayList<String> addressArrayList;
@@ -55,11 +62,16 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
     ArrayList<String> stateArrayList;
     ArrayList<String> zipArrayList;
 
+    String scheduleName;
+    List<String> scheduleList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseRoot = FirebaseDatabase.getInstance().getReference();
 
         addressArrayList = new ArrayList<>();
         cityArrayList = new ArrayList<>();
@@ -67,6 +79,36 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
         zipArrayList = new ArrayList<>();
         keyArrayList = new ArrayList<>();
 
+        spinner = findViewById(R.id.spinnerMap);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, scheduleList);
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        firebaseRoot.child(uid).child("Schedules").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                scheduleList.clear();
+                scheduleList.add("Select a schedule....");
+                for (DataSnapshot locationSnapshot: snapshot.getChildren()) {
+                    String name = locationSnapshot.child("Name").getValue(String.class);
+                    if(name != null){
+                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_SHORT).show();
+                        scheduleList.add(name);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                }}
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }});
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -87,7 +129,7 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
         mMap.setMyLocationEnabled(true);
 
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+      /*  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
         firebaseRoot1 = FirebaseDatabase.getInstance().getReference();
         firebaseRoot1.addValueEventListener(new ValueEventListener() {
@@ -146,7 +188,7 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });*/
 
     }
 
@@ -177,5 +219,81 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (i > 0) {
+            String text = adapterView.getItemAtPosition(i).toString();
+            scheduleName = text;
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+            firebaseRoot1 = FirebaseDatabase.getInstance().getReference();
+            firebaseRoot1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapShot3) {
+                    // Getting values from Locations
+                    if (dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").exists()) {
+                        for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child("My Schedule").child("Locations").getChildren()) {
+                            keyArrayList.add(ds.getKey());
+                        }
+//                    Log.d("Locations: ", keyArrayList.toString());
+                        for (DataSnapshot ds : dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").getChildren()) {
+                            String locationName = ds.getValue().toString();
+                            if (keyArrayList.contains(locationName)) {
+                                addressArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Address One").getValue().toString());
+                                cityArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("City").getValue().toString());
+                                stateArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("State").getValue().toString());
+                                zipArrayList.add(dataSnapShot3.child(uid).child("Schedules").child(scheduleName).child("Locations").child(locationName).child("Postal Code").getValue().toString());
+                            }
+                        }
+//                    Log.d("SNAP: ", addressArrayList.toString());
+//                    Log.d("SNAP: ", cityArrayList.toString());
+//                    Log.d("SNAP: ", stateArrayList.toString());
+//                    Log.d("SNAP: ", zipArrayList.toString());
+
+
+                        // Marking locations on map:
+                        for (int i = 0; i < addressArrayList.size(); i++) {
+                            String fAddress = addressArrayList.get(i) + ", " + cityArrayList.get(i) + ", " + stateArrayList.get(i) + " " + zipArrayList.get(i);
+//                        Log.d("Addy: ", fAddress);
+
+                            try {
+                                List<Address> addresses = geocoder.getFromLocationName(fAddress, 1);
+
+                                if (addresses.size() > 0) {
+                                    Address address = addresses.get(0);
+                                    Log.d(TAG, "OnMapReady: " + address.toString());
+                                    LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+                                    MarkerOptions markerOptions = new MarkerOptions()
+                                            .position(location)
+                                            .title(address.getLocality());
+
+
+                                    mMap.addMarker(markerOptions);
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10));
+
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else{
+            Toast.makeText(this, "Please select a schedule", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+}
 

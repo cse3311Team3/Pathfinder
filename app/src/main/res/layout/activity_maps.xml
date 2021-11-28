@@ -23,8 +23,8 @@
 
     <Spinner
         android:id="@+id/spinnerMap"
-        android:layout_width="346dp"
-        android:layout_height="64dp"
+        android:layout_width="374dp"
+        android:layout_height="56dp"
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
