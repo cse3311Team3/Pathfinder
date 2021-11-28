@@ -165,6 +165,22 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo, AdapterV
                                 fAddress = addressParsed + "," + cityParsed;
                                 unorderedArrayList.add(fAddress);
                             }
+
+
+
+
+                            String Lat_Lng = lat + "," + lng;
+
+                            for (int x = 0; x < unorderedArrayList.size(); x++) {
+                                str_from = Lat_Lng;
+                                str_to = unorderedArrayList.get(x);
+                                String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str_from + "&destinations=" + str_to + "&mode=driving&language=fr-FR&avoid=tolls&key=AIzaSyDwqb3Mc7o9iyi7eyavU4AG53radkNaRaM";
+                                new GeoTask(Distance.this).execute(url);
+
+                            }
+
+
+
                         }
                     }
 
@@ -175,15 +191,15 @@ public class Distance extends AppCompatActivity implements GeoTask.Geo, AdapterV
                 });
 
 
-                String Lat_Lng = lat + "," + lng;
-
-                for (int x = 0; x < unorderedArrayList.size(); x++) {
-                    str_from = Lat_Lng;
-                    str_to = unorderedArrayList.get(x);
-                    String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str_from + "&destinations=" + str_to + "&mode=driving&language=fr-FR&avoid=tolls&key=AIzaSyDwqb3Mc7o9iyi7eyavU4AG53radkNaRaM";
-                    new GeoTask(Distance.this).execute(url);
-
-                }
+//                String Lat_Lng = lat + "," + lng;
+//
+//                for (int x = 0; x < unorderedArrayList.size(); x++) {
+//                    str_from = Lat_Lng;
+//                    str_to = unorderedArrayList.get(x);
+//                    String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str_from + "&destinations=" + str_to + "&mode=driving&language=fr-FR&avoid=tolls&key=AIzaSyDwqb3Mc7o9iyi7eyavU4AG53radkNaRaM";
+//                    new GeoTask(Distance.this).execute(url);
+//
+//                }
             }
         });
 
