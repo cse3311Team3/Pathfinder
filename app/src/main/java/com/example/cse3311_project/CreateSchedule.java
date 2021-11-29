@@ -201,19 +201,12 @@ public class CreateSchedule extends AppCompatActivity implements AdapterView.OnI
         ocas_schedule = (EditText) schedule_popup.findViewById(R.id.schedule_ocassion);
         cancel_bt = (Button) schedule_popup.findViewById(R.id.cancel_but);
         save_bt = (Button) schedule_popup.findViewById(R.id.save_but);
-        date_bt = (Button) schedule_popup.findViewById(R.id.select_date);
+
 
         dialogbuilder_next.setView(schedule_popup);
         new_dialog = dialogbuilder_next.create();
         new_dialog.show();
 
-        date_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment datePicker = new datepickerdialog();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-            }
-        });
 
         save_bt.setOnClickListener(new View.OnClickListener() {
             @Override

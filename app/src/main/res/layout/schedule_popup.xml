@@ -64,22 +64,6 @@
                 app:layout_constraintVertical_bias="0.451" />
 
             <Button
-                android:id="@+id/select_date"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:drawableLeft="@drawable/ic_baseline_calendar_today_24"
-                android:text="Select Date"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_ocassion"
-                app:layout_constraintVertical_bias="0.091" />
-
-            <Button
                 android:id="@+id/save_but"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
